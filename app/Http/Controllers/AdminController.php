@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Peminjaman;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin_page.index');
+        $peminjaman = Peminjaman::with('gedung')->get();
+        // return $peminjaman;
+        $data = ["peminjaman" => $peminjaman];
+        return view('admin_page.index', $data);
     }
 
     public function datagedung()

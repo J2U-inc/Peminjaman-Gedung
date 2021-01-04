@@ -54,6 +54,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="nohp" class="col-md-4 col-form-label text-md-right">{{ __('Nomor HP') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nohp" type="number" class="form-control @error('nohp') is-invalid @enderror" name="nohp" value="{{ old('nohp') }}" required autocomplete="nohp" autofocus>
+
+                                @error('nohp')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

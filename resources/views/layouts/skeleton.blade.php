@@ -14,11 +14,18 @@
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
   {{-- stisla --}}
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/datatables.min.css">
-    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
-
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/datatables.min.css">
+  <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+  {{-- calendar --}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('adminLTE/plugins/fullcalendar/main.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminLTE/plugins/fullcalendar/interaction/main.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminLTE/plugins/fullcalendar/daygrid/main.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminLTE/plugins/fullcalendar/timegrid/main.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminLTE/plugins/fullcalendar/bootstrap/main.min.css')}}"> --}}
 </head>
 
 <body>
@@ -29,6 +36,8 @@
     <script src="{{asset('adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('adminLTE/dist/js/adminlte.min.js')}}"></script>
+
+    @stack('script')
 
     <!-- SweetAlert2 delete -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
@@ -101,13 +110,13 @@
               format: 'YY-MM-DD HH:mm:ss'
             }
           });
-          @if(isset($peminjaman) && $peminjaman->count() > 0)
+          @if(isset($peminjaman) && $peminjaman-> count()>0)
             $('input[name="datetimes"]').data('daterangepicker').setStartDate('{{$peminjaman[0]->awal_pinjam}}');
             $('input[name="datetimes"]').data('daterangepicker').setEndDate('{{$peminjaman[0]->akhir_pinjam}}');
             @endif
         });
         //change the selected date range of that picker
+    </script>
 
-        </script>
 </body>
 </html>

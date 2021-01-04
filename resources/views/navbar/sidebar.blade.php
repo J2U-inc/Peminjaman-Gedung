@@ -13,7 +13,7 @@
           <img src="{{asset('adminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{$users = Auth::user()->name}}</a>
+          <a href="{{route('admin.index')}}" class="d-block">{{$users = Auth::user()->name}}</a>
         </div>
       </div>
 

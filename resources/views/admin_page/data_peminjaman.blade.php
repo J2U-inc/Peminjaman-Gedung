@@ -31,6 +31,13 @@
                         Tambah Data
                     </button></a>
             </div>
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                {{session('status')}}
+                </div>
+            @endif
+
             <div class="card-body">
                 {{-- mulai dari sini masukkan data table --}}
                 <table id="example1" class="table table-bordered table-hover">
@@ -58,6 +65,7 @@
                     {{-- <td style="text-align: center">{{$p->nama_lembaga}}</td> --}}
                     {{-- <td style="text-align: center">{{ $p->nama_lembaga }}</td> --}}
                     <td style="text-align: center">
+
                         <form method="POST" action="/admin/peminjaman/{{$p->id}}">
                             @csrf
                             @method('delete')
