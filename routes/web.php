@@ -44,13 +44,15 @@ Route::delete('/admin/gedung/{id}', 'GedungController@destroy')->middleware('is_
 // Route::delete('/admin/lembaga/{id}', 'LembagaController@destroy')->middleware('is_admin');
 
 //data peminjaman admin
-Route::get('/admin/peminjaman' , 'PeminjamanController@index')->middleware('is_admin');
+Route::get('/admin/peminjaman' , 'PeminjamanController@index')->name('peminjaman')->middleware('is_admin');
 Route::get('admin/peminjaman/create' , 'PeminjamanController@create')->middleware('is_admin'); //ke view tambah data
 Route::post('admin/peminjaman' , 'PeminjamanController@store')->middleware('is_admin')->name('peminjaman.store'); // tambah data
 Route::get('/admin/peminjaman/{id}' , 'PeminjamanController@show')->middleware('is_admin')->name('peminjaman.show');
 Route::get('/admin/peminjaman/{id}/edit', 'PeminjamanController@edit')->middleware('is_admin');
 Route::put('/admin/peminjaman/{id}', 'PeminjamanController@update')->middleware('is_admin')->name('peminjaman.update');
 Route::delete('/admin/peminjaman/{id}', 'PeminjamanController@destroy')->middleware('is_admin');
+Route::put('/admin/persetujuan/{id}', 'PeminjamanController@persetujuan')->middleware('is_admin');
+Route::put('/admin/penolakan/{id}', 'PeminjamanController@penolakan')->middleware('is_admin');
 
 
 //user

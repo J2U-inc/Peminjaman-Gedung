@@ -26,6 +26,29 @@
     <div class="content">
       <div class="container-fluid">
         <div class="card">
+            <div class="card-body">
+                {{-- persetujuan --}}
+                <div style="float: right">
+                    <form action="/admin/persetujuan/{{$peminjaman[0]->id}}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" value="1" name="status">
+                        <button type="submit" class="btn btn-success ml-2" style="width: 80px; float: right">
+                            Terima
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <form action="/admin/penolakan/{{$peminjaman[0]->id}}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" value="0" name="status">
+                        <button type="submit" class="btn btn-danger" style="width: 80px;float: right">
+                            Tolak
+                        </button>
+                    </form>
+                </div>
+        </div>
             {{-- konten --}}
             <form method="GET" action="" enctype="multipart/form-data">
                 @csrf

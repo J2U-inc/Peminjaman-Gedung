@@ -19,8 +19,8 @@ class PeminjamanController extends Controller
     public function index()
     {
         $peminjaman = DB::table('peminjaman')
-        ->select('gedung.id as gedung_id','gedung.nama_gedung' , 'peminjaman.*')
-            ->join('gedung' , 'gedung.id', '=' , 'peminjaman.gedung_id')
+            ->select('gedung.id as gedung_id', 'gedung.nama_gedung', 'peminjaman.*')
+            ->join('gedung', 'gedung.id', '=', 'peminjaman.gedung_id')
             // ->join('lembaga' , 'lembaga.id', '=' , 'peminjaman.lembaga_id')
             ->get();
         // $peminjaman = Peminjaman::All()->join('gedung' , 'gedung.id', '=' , 'peminjaman.gedung_id')->select('peminjaman.*','gedung.nama');
@@ -28,7 +28,7 @@ class PeminjamanController extends Controller
 
         // $lembaga = Lembaga::All();
 
-        return view ('admin_page.data_peminjaman' , compact('peminjaman'));
+        return view('admin_page.data_peminjaman', compact('peminjaman'));
     }
 
     /**
@@ -40,7 +40,7 @@ class PeminjamanController extends Controller
     {
         $gedung = Gedung::All();
         $user = User::All();
-        return view('admin_page.tambah_data_peminjaman' ,compact('gedung', 'user'));
+        return view('admin_page.tambah_data_peminjaman', compact('gedung', 'user'));
     }
 
     /**
@@ -62,14 +62,14 @@ class PeminjamanController extends Controller
         ]);
 
 
-        $surat_peminjaman=null;
-            if($request->surat_peminjaman){
+        $surat_peminjaman = null;
+        if ($request->surat_peminjaman) {
             $surat_peminjaman = $request->surat_peminjaman->getClientOriginalName() . '-' . time()
-                                    . '.' . $request->surat_peminjaman->extension();
+                . '.' . $request->surat_peminjaman->extension();
             $request->surat_peminjaman->move(public_path('gambar'), $surat_peminjaman);
         }
         // dd($request->datetimes);
-        $tanggal= explode(" - ", $request->datetimes);
+        $tanggal = explode(" - ", $request->datetimes);
         $peminjaman = new Peminjaman();
         $peminjaman->gedung_id = $request->gedung_id;
         $peminjaman->user_id = $request->user_id;
@@ -94,15 +94,15 @@ class PeminjamanController extends Controller
     public function show($id)
     {
         $peminjaman = Peminjaman::find($id)
-            ->select('gedung.id as gedung_id','gedung.nama_gedung' , 'peminjaman.*')
-            ->where('peminjaman.id','=' , $id)
-            ->join('gedung' , 'gedung.id', '=' , 'peminjaman.gedung_id')
+            ->select('gedung.id as gedung_id', 'gedung.nama_gedung', 'peminjaman.*')
+            ->where('peminjaman.id', '=', $id)
+            ->join('gedung', 'gedung.id', '=', 'peminjaman.gedung_id')
             // ->join('lembaga' , 'lembaga.id', '=' , 'peminjaman.lembaga_id')
             ->get();
-            // dd($peminjaman);
+        // dd($peminjaman);
         $gedung = Gedung::All();
         $user = User::All();
-        return view('admin_page.lihat_data_peminjaman' , compact('peminjaman','gedung','user'));
+        return view('admin_page.lihat_data_peminjaman', compact('peminjaman', 'gedung', 'user'));
     }
 
     /**
@@ -114,17 +114,17 @@ class PeminjamanController extends Controller
     public function edit($id)
     {
         $peminjaman = Peminjaman::find($id)
-        ->select('gedung.id as gedung_id','gedung.nama_gedung' , 'peminjaman.*')
-        ->where('peminjaman.id','=' , $id)
-        ->join('gedung' , 'gedung.id', '=' , 'peminjaman.gedung_id')
-        ->get();
+            ->select('gedung.id as gedung_id', 'gedung.nama_gedung', 'peminjaman.*')
+            ->where('peminjaman.id', '=', $id)
+            ->join('gedung', 'gedung.id', '=', 'peminjaman.gedung_id')
+            ->get();
         // dd($peminjaman);
-        $datetimes=array($peminjaman[0]->awal_pinjam, $peminjaman[0]->akhir_pinjam);
-        $tanggal=implode(" - ",$datetimes);
+        $datetimes = array($peminjaman[0]->awal_pinjam, $peminjaman[0]->akhir_pinjam);
+        $tanggal = implode(" - ", $datetimes);
         // dd($tanggal);
         $gedung = Gedung::All();
         $user = User::All();
-        return view('admin_page.edit_data_peminjaman' , compact('peminjaman','gedung','user','tanggal'));
+        return view('admin_page.edit_data_peminjaman', compact('peminjaman', 'gedung', 'user', 'tanggal'));
     }
 
     /**
@@ -136,7 +136,7 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($id);
+        // dd($request);
         $request->validate([
             'gedung_id' => 'required',
             // 'user_id' => 'required',
@@ -144,20 +144,20 @@ class PeminjamanController extends Controller
             'keperluan' => 'required',
             'lembaga' => 'required',
             'datetimes' => 'required',
-            'surat_peminjaman' => 'required',
+            // 'surat_peminjaman' => 'required',
         ]);
 
 
-        $surat_peminjaman=null;
-            if($request->surat_peminjaman){
+        $surat_peminjaman = null;
+        if ($request->surat_peminjaman) {
             $surat_peminjaman = $request->surat_peminjaman->getClientOriginalName() . '-' . time()
-                                    . '.' . $request->surat_peminjaman->extension();
+                . '.' . $request->surat_peminjaman->extension();
             $request->surat_peminjaman->move(public_path('gambar'), $surat_peminjaman);
         }
         // dd($request->datetimes);
-        $tanggal= explode(" - ", $request->datetimes);
+        $tanggal = explode(" - ", $request->datetimes);
         $peminjaman = Peminjaman::find($id);
-        dd($peminjaman);
+        // dd($peminjaman);
         $peminjaman->gedung_id = $request->gedung_id;
         $peminjaman->user_id = $request->user_id;
         $peminjaman->nama_peminjam = $request->nama_peminjam;
@@ -181,7 +181,40 @@ class PeminjamanController extends Controller
      */
     public function destroy($id)
     {
-        Gedung::destroy($id);
+        Peminjaman::destroy($id);
+        return redirect('/admin/peminjaman')->with('status','Data Berhasil Dihapus !');
+    }
+
+    public function persetujuan(Request $request,$id)
+    {
+
+        // return $request->all();
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+        $peminjaman = Peminjaman::find($id);
+        $peminjaman->status = $request->status;
+
+        $peminjaman->save();
+
         return redirect('/admin/peminjaman');
     }
+
+    public function penolakan(Request $request,$id)
+    {
+
+        // return $request->all();
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+        $peminjaman = Peminjaman::find($id);
+        $peminjaman->status = $request->status;
+
+        $peminjaman->save();
+
+        return redirect('/admin/peminjaman');
+    }
+
 }

@@ -31,10 +31,6 @@
                 @csrf
                 @method('PUT')
                 <div class="card-body">
-                    {{-- @php
-                    $datetimes=array($peminjaman[0]->awal_pinjam, $peminjaman[0]->akhir_pinjam);
-                    $tanggal=implode("-",$datetimes);
-                    @endphp --}}
                     <div class="form-group">
                         <label for="inputNamaGedung">Nama Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
