@@ -101,10 +101,10 @@
               format: 'YY-MM-DD HH:mm:ss'
             }
           });
-          @isset($peminjaman)
+          @if(isset($peminjaman) && $peminjaman->count() > 0)
             $('input[name="datetimes"]').data('daterangepicker').setStartDate('{{$peminjaman[0]->awal_pinjam}}');
             $('input[name="datetimes"]').data('daterangepicker').setEndDate('{{$peminjaman[0]->akhir_pinjam}}');
-            @endisset
+            @endif
         });
         //change the selected date range of that picker
 
