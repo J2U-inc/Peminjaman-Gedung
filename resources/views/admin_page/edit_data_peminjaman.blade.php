@@ -27,23 +27,29 @@
       <div class="container-fluid">
         <div class="card">
             {{-- konten --}}
-            <form method="POST" action="/admin/peminjaman/{{$peminjaman[0]->id}}" enctype="multipart/form-data">
+            <form method="POST" action="/admin/peminjaman/{{$peminjaman->id}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
+
+                    {{-- <div class="form-group">
+                        <input type="hidden" value="{{$users = Auth::user()->id}}" name="user_id">
+                    </div> --}}
+
                     <div class="form-group">
                         <label for="inputNamaGedung">Nama Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
-                            placeholder="Silahkan Masukkan Nama Peminjam" name="nama_peminjam" value="{{old('title') ? old('title') : $peminjaman[0]->nama_peminjam}}">
+                            placeholder="Silahkan Masukkan Nama Peminjam" name="nama_peminjam" value="{{old('title') ? old('title') : $peminjaman->user->name}}" readonly>
                             @error('nama_peminjam')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
 
+
                     <div class="form-group">
                         <label for="inputKeperluan">Nama Organisasi/Lembaga</label>
                         <input type="text" class="form-control" id="inputKeperluan"
-                            placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{old('title') ? old('title') : $peminjaman[0]->lembaga}}" >
+                            placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{old('title') ? old('title') : $peminjaman->lembaga}}" >
                             @error('lembaga')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -64,7 +70,7 @@
                         <label for="inputKapasitasLembaga">Gedung</label>
                         <select name="gedung_id" class="form-control" id="gedung_id">
                             @foreach ($gedung as $g)
-                            <option value="{{$g->id}}" {{ $g->id == $peminjaman[0]->gedung_id ? "selected" : "" }} >{{$g->nama_gedung}}</option>
+                            <option value="{{$g->id}}" {{ $g->id == $peminjaman->gedung_id ? "selected" : "" }} >{{$g->nama_gedung}}</option>
                             @endforeach
                         </select>
                             @error('gedung_id')
@@ -75,7 +81,7 @@
                     <div class="form-group">
                         <label for="inputKeperluan">Keperluan</label>
                         <input type="text" class="form-control" id="inputKeperluan"
-                            placeholder="Silahkan Masukkan Keperluan" name="keperluan" value="{{old('title') ? old('title') : $peminjaman[0]->keperluan}}" >
+                            placeholder="Silahkan Masukkan Keperluan" name="keperluan" value="{{old('title') ? old('title') : $peminjaman->keperluan}}" >
                             @error('keperluan')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -105,8 +111,8 @@
 
                     <div class="form-group">
                         <label for="surat_peminjaman">Surat Peminjaman</label><br>
-                            @if ($peminjaman[0]->surat_peminjaman)
-                                <a href="/gambar/{{$peminjaman[0]->surat_peminjaman}}" alt="surat" width="300" target="_blank"
+                            @if ($peminjaman->surat_peminjaman)
+                                <a href="/gambar/{{$peminjaman->surat_peminjaman}}" alt="surat" width="300" target="_blank"
                                     >Lihat Surat Peminjaman</a>
                                 <div class="custom-file"><br>
                                     <input type="file" class="form-control-file" id="surat_peminjaman" name="surat_peminjaman">
@@ -141,3 +147,20 @@
     </div>
   </aside>
 @endsection
+
+@push('script')
+<script>
+    $(function() {
+        $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                startDate: moment().startOf('hour'), timePicker24Hour: true,
+                endDate: moment().startOf('hour').add(32, 'hour'),
+                locale: {
+                format: 'YY-MM-DD HH:mm:ss'
+                }
+        });
+        $('input[name="datetimes"]').data('daterangepicker').setStartDate('{{$peminjaman->awal_pinjam}}');
+        $('input[name="datetimes"]').data('daterangepicker').setEndDate('{{$peminjaman->akhir_pinjam}}');
+    });
+</script>
+@endpush

@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data Peminjaman</h1>
+            <h1 class="m-0">Riwayat Peminjaman</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,14 +25,6 @@
     <div class="content">
       <div class="container-fluid">
         <div class="card">
-            @if(Auth::user()->is_admin==1)
-            <div class="card-body">
-                <a href="/admin/peminjaman/create">
-                    <button type="button" class="btn btn-primary">
-                        Tambah Data
-                    </button></a>
-            </div>
-            @endif
 
             <div class="card-body">
                 {{-- mulai dari sini masukkan data table --}}
@@ -60,7 +52,7 @@
                     <td style="text-align: center">{{ $p->awal_pinjam }}</td>
                     <td style="text-align: center">{{ $p->akhir_pinjam }}</td>
                     <td style="text-align: center">
-                        <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'info')}}">
+                        <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'warning')}}">
                             {{ $p->status===1 ? 'diterima' : ($p->status===0 ? 'ditolak' : 'diproses')}}
                         </span>
                     </td>
@@ -73,12 +65,12 @@
                             @method('delete')
 
                             <a href="/admin/peminjaman/{{ $p->id }}" class="btn btn-primary" style="width: 70px">Detail</a>
-                            @if (Auth::user()->is_admin==1)
+                            {{-- @if (Auth::user()->is_admin==1)
                             <a href="/admin/peminjaman/{{ $p->id }}/edit" class="btn btn-warning" style="width: 70px">Edit</a>
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin akan menghapus data ?')">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Antum yakin menghapus data ?')">
                                 Hapus
                             </button>
-                            @endif
+                            @endif --}}
                         </form>
                     </td>
 
@@ -122,7 +114,6 @@
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            Height: 1500,
             didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
                 toast.addEventListener('mouseleave', Swal.resumeTimer)

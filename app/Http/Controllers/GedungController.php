@@ -62,7 +62,7 @@ class GedungController extends Controller
         $gedung->foto = $imgName;
         $gedung->save();
 
-        return redirect('/admin/gedung');
+        return redirect('/admin/gedung')->with('success','Data Berhasil Ditambahkan !');
     }
 
     /**
@@ -108,12 +108,15 @@ class GedungController extends Controller
             'foto' => 'mimes:jpeg,png,jpg,gif,svg|max:1024',
         ]);
 
-        $imgName=null;
-        if($request->foto){
-            $imgName = $request->foto->getClientOriginalName() . '-' . time()
-                                    . '.' . $request->foto->extension();
-            $request->foto->move(public_path('gambar'), $imgName);
-        }
+
+
+        // $surat_peminjaman = null;
+        // if ($request->surat_peminjaman) {
+        //     $surat_peminjaman = $request->surat_peminjaman->getClientOriginalName() . '-' . time()
+        //         . '.' . $request->surat_peminjaman->extension();
+        //     $request->surat_peminjaman->move(public_path('gambar'), $surat_peminjaman);
+        //     $peminjaman->surat_peminjaman = $surat_peminjaman;
+        // }
 
         $gedung = Gedung::find($id);
 
@@ -122,11 +125,18 @@ class GedungController extends Controller
         $gedung->kapasitas = $request->kapasitas;
         $gedung->fungsi = $request->fungsi;
         $gedung->deskripsi = $request->deskripsi;
-        $gedung->foto = $imgName;
+        // $gedung->foto = $imgName;
+        $imgName=null;
+        if($request->foto){
+            $imgName = $request->foto->getClientOriginalName() . '-' . time()
+                                    . '.' . $request->foto->extension();
+            $request->foto->move(public_path('gambar'), $imgName);
+            $gedung->foto = $imgName;
+        }
         $gedung->save();
 
 
-        return redirect('/admin/gedung');
+        return redirect('/admin/gedung')->with('success', 'Data berhasil diubah !');
     }
 
     /**
@@ -138,6 +148,6 @@ class GedungController extends Controller
     public function destroy($id)
     {
         Gedung::destroy($id);
-        return redirect('/admin/gedung');
+        return redirect('/admin/gedung')->with('success','Data Berhasil Dihapus !');
     }
 }

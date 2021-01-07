@@ -26,10 +26,11 @@
     <div class="content">
       <div class="container-fluid">
         <div class="card">
+            @if (Auth::user()->is_admin==1)
             <div class="card-body">
                 {{-- persetujuan --}}
                 <div style="float: right">
-                    <form action="/admin/persetujuan/{{$peminjaman[0]->id}}" method="POST">
+                    <form action="/admin/persetujuan/{{$peminjaman->id}}" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="1" name="status">
@@ -39,7 +40,7 @@
                     </form>
                 </div>
                 <div>
-                    <form action="/admin/penolakan/{{$peminjaman[0]->id}}" method="POST">
+                    <form action="/admin/penolakan/{{$peminjaman->id}}" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="0" name="status">
@@ -49,19 +50,48 @@
                     </form>
                 </div>
         </div>
+        @endif
             {{-- konten --}}
             <form method="GET" action="" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
                     @php
-                    $datetimes=array($peminjaman[0]->awal_pinjam, $peminjaman[0]->akhir_pinjam);
+                    $datetimes=array($peminjaman->awal_pinjam, $peminjaman->akhir_pinjam);
                     $tanggal=implode("-",$datetimes);
                     @endphp
                     <div class="form-group">
                         <label for="inputNamaGedung">Nama Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
-                            placeholder="Silahkan Masukkan Nama Peminjam" name="nama_peminjam" value="{{old('title') ? old('title') : $peminjaman[0]->nama_peminjam}}" readonly>
+                            placeholder="Silahkan Masukkan Nama Peminjam" name="nama_peminjam" value="{{$peminjaman->user->name}}" readonly>
+                            @error('nama_peminjam')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputNamaGedung">NIM Peminjam</label>
+                        <input type="text" class="form-control" id="inputNamaGedung"
+                            placeholder="Silahkan Masukkan NIM Peminjam" name="nama_peminjam" value="{{$peminjaman->user->nim == 0 ? '-' : $peminjaman->user->nim}}" readonly>
+                            @error('nama_peminjam')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputNamaGedung">Email Peminjam</label>
+                        <input type="text" class="form-control" id="inputNamaGedung"
+                            placeholder="Silahkan Masukkan NIM Peminjam" name="nama_peminjam" value="{{$peminjaman->user->email}}" readonly>
+                            @error('nama_peminjam')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputNamaGedung">Nomor HP Peminjam</label>
+                        <input type="text" class="form-control" id="inputNamaGedung"
+                            placeholder="Silahkan Masukkan No HP Peminjam" name="nohp" value="{{strlen($peminjaman->user->nohp) > 0 ? $peminjaman->user->nohp : '-'}}" readonly>
                             @error('nama_peminjam')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -70,7 +100,7 @@
                     <div class="form-group">
                         <label for="inputKeperluan">Nama Organisasi/Lembaga</label>
                         <input type="text" class="form-control" id="inputKeperluan"
-                            placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{old('title') ? old('title') : $peminjaman[0]->lembaga}}" readonly>
+                            placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{$peminjaman->lembaga}}" readonly>
                             @error('lembaga')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -80,7 +110,7 @@
                         <label for="inputKapasitasLembaga">Gedung</label>
                         <select name="gedung_id" class="form-control" id="gedung_id">
                             @foreach ($gedung as $g)
-                            <option value="{{$g->id}}">{{old('title') ? old('title') : $peminjaman->nama_gedung}}</option>
+                            <option value="{{$g->id}}">{{$peminjaman->nama_gedung}}</option>
                             @endforeach
                         </select>
                             @error('gedung_id')
@@ -90,7 +120,7 @@
                     <div class="form-group">
                         <label for="inputKeperluan">Nama Gedung</label>
                         <input type="text" class="form-control" id="inputKeperluan"
-                            placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{old('title') ? old('title') : $peminjaman[0]->nama_gedung}}" readonly>
+                            placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{$peminjaman->gedung->nama_gedung}}" readonly>
                             @error('lembaga')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -99,7 +129,7 @@
                     <div class="form-group">
                         <label for="inputKeperluan">Keperluan</label>
                         <input type="text" class="form-control" id="inputKeperluan"
-                            placeholder="Silahkan Masukkan Keperluan" name="keperluan" value="{{old('title') ? old('title') : $peminjaman[0]->keperluan}}" readonly>
+                            placeholder="Silahkan Masukkan Keperluan" name="keperluan" value="{{$peminjaman->keperluan}}" readonly>
                             @error('keperluan')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -108,7 +138,7 @@
                     <div class="form-group">
                         <label for="inputAwalPinjam">Awal dan Akhir Pinjam</label>
                         <input type="text" name="datetimes" class="form-control" id="inputAwalPinjam"
-                            placeholder="Silahkan Masukkan Tanggal Awal dan Akhir Peminjaman"  value="{{old('title') ? old('title') : $tanggal}}" readonly>
+                            placeholder="Silahkan Masukkan Tanggal Awal dan Akhir Peminjaman"  value="{{$tanggal}}" readonly>
                             @error('awal_pinjam')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -129,8 +159,8 @@
 
                     <div class="form-group">
                         <label for="surat_peminjaman">Surat Peminjaman</label><br>
-                            @if ($peminjaman[0]->surat_peminjaman)
-                                <a href="/gambar/{{$peminjaman[0]->surat_peminjaman}}" alt="surat" width="300" target="_blank" class="btn btn-info">Surat Peminjaman</a>
+                            @if ($peminjaman->surat_peminjaman)
+                                <a href="/gambar/{{$peminjaman->surat_peminjaman}}" alt="surat" width="300" target="_blank" class="btn btn-info">Surat Peminjaman</a>
                             @else
                                 <p>Belum ada surat</p>
                             @endif

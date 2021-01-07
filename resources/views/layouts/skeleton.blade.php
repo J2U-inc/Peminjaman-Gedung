@@ -12,7 +12,9 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminLTE/dist/css/adminlte.min.css')}}">
   <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.13.0/dist/sweetalert2.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.13.0/dist/sweetalert2.min.css">
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"> --}}
   {{-- stisla --}}
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/datatables/datatables.min.css">
@@ -41,6 +43,7 @@
 
     <!-- SweetAlert2 delete -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript">
         function deleteConfirmation(id) {
             swal({
@@ -87,6 +90,7 @@
 
     {{-- stisla data table --}}
     <!-- JS Libraies -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.13.0/dist/sweetalert2.min.js"></script>
     <script src="https://demo.getstisla.com/assets/modules/datatables/datatables.min.js"></script>
     <script src="https://demo.getstisla.com/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://demo.getstisla.com/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
@@ -98,25 +102,25 @@
             }]
         });
     </script>
-
-    {{-- datetimepicker --}}
     <script>
-        $(function() {
-          $('input[name="datetimes"]').daterangepicker({
-            timePicker: true,
-            startDate: moment().startOf('hour'), timePicker24Hour: true,
-            endDate: moment().startOf('hour').add(32, 'hour'),
-            locale: {
-              format: 'YY-MM-DD HH:mm:ss'
-            }
-          });
-          @if(isset($peminjaman) && $peminjaman-> count()>0)
-            $('input[name="datetimes"]').data('daterangepicker').setStartDate('{{$peminjaman[0]->awal_pinjam}}');
-            $('input[name="datetimes"]').data('daterangepicker').setEndDate('{{$peminjaman[0]->akhir_pinjam}}');
-            @endif
+        $("#datapeminjaman").dataTable({
+            "columnDefs": [
+                {"sortable": false, "targets": []},
+                {"width" : "2%", "targets" : [0]},
+                {"width" : "8%", "targets" : [1]},
+                {"width" : "8%", "targets" : [2]},
+                {"width" : "15%", "targets" : [3,4]},
+                {"width" : "8%", "targets" : [5]},
+                {"width" : "25%", "targets" : [6]}
+            ]
         });
-        //change the selected date range of that picker
     </script>
 
+    @stack('script')
+    {{-- datetimepicker --}}
+    <script>
+
+        //change the selected date range of that picker
+    </script>
 </body>
 </html>

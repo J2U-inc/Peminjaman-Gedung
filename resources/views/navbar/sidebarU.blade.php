@@ -27,7 +27,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/user/peminjaman/create" class="nav-link">
+            <a href="peminjaman/create" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>Peminjaman</p>
             </a>

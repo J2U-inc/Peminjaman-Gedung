@@ -20,30 +20,83 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        @if (Auth::user()->is_admin==1)
           <li class="nav-item">
             <a href="/admin/peminjaman" class="nav-link {{ strpos(request()->url(),'/admin/peminjaman') ? 'active' : ''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>Data Peminjaman</p>
             </a>
           </li>
+          @endif
+
+          @if (Auth::user()->is_admin==1)
           <li class="nav-item">
             <a href="/admin/gedung" class="nav-link {{ strpos(request()->url(),'/admin/gedung') ? 'active' : ''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>Data Gedung</p>
             </a>
           </li>
+          @endif
           {{-- <li class="nav-item">
             <a href="/admin/lembaga" class="nav-link {{ strpos(request()->url(),'/admin/lembaga') ? 'active' : ''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>Data Lembaga</p>
             </a>
           </li> --}}
+          @if (Auth::user()->is_admin==1)
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/riwayatpeminjaman" class="nav-link {{ strpos(request()->url(),'/admin/riwayatpeminjaman') ? 'active' : ''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>Riwayat Peminjaman</p>
             </a>
           </li>
+          @endif
+
+        {{-- MENU USER --}}
+        {{-- @if (Auth::user()->is_admin==0)
+        <li class="nav-item">
+            <a href="/user/index" class="nav-link {{ strpos(request()->url(),'index') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Profil</p>
+            </a>
+          </li>
+          @endif --}}
+          @if (Auth::user()->is_admin==0)
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Cek Jadwal</p>
+            </a>
+          </li>
+          @endif
+
+          @if (Auth::user()->is_admin==0)
+          <li class="nav-item">
+            <a href="peminjaman/create" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Ajukan Peminjaman</p>
+            </a>
+          </li>
+          @endif
+
+          @if (Auth::user()->is_admin==0)
+          <li class="nav-item">
+            <a href="/user/peminjaman" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Data Peminjaman</p>
+            </a>
+          </li>
+          @endif
+
+          {{-- @if (Auth::user()->is_admin==0)
+          <li class="nav-item">
+            <a href="/admin/peminjaman" class="nav-link {{ strpos(request()->url(),'/admin/peminjaman') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Data Peminjaman</p>
+            </a>
+          </li>
+          @endif --}}
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
