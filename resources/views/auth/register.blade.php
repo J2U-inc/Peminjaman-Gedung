@@ -1,105 +1,136 @@
-@extends('layouts.app')
+@extends('layouts.loginskeleton')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+@section('loginn')
+<body>
+    <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title">
+                    <img src="{{ ('gambar/logo.png') }}" alt="Logo" style="width: 10%" class="mb-2">
+					<span class="login100-form-title-1">
+						Sistem Peminjaman Gedung <br>UIN SUSKA Riau
+					</span>
+				</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
+                    @csrf
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Silahkan Masukkan Nama Anda">
+						<span class="label-input100">Nama</span>
+                        <input class="input100  @error('name') is-invalid @enderror" type="text" name="name" placeholder="Silahkan Masukkan Nama Anda" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+						<span class="focus-input100"></span>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Silahkan Masukkan NIM Anda">
+						<span class="label-input100">NIM</span>
+                        <input class="input100  @error('nim') is-invalid @enderror" type="number" name="nim" placeholder="Silahkan Masukkan NIM Anda" value="{{ old('nim') }}" required autocomplete="nim">
+                        @error('nim')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+						<span class="focus-input100"></span>
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Silahkan Masukkan Email Anda">
+						<span class="label-input100">Email</span>
+                        <input class="input100  @error('email') is-invalid @enderror" type="email" name="email" placeholder="Silahkan Masukkan Email Students Anda" value="{{ old('email') }}" required autocomplete="email">
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+						<span class="focus-input100"></span>
+                    </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Silahkan Masukkan No HP Anda">
+						<span class="label-input100">Nomor HP</span>
+                        <input class="input100  @error('nohp') is-invalid @enderror" type="number" name="nohp" placeholder="Silahkan Masukkan Nomor HP Anda" value="{{ old('nohp') }}" required autocomplete="nohp">
+                        @error('nohp')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+						<span class="focus-input100"></span>
+					</div>
 
-                        <div class="form-group row">
-                            <label for="nim" class="col-md-4 col-form-label text-md-right">{{ __('Nim') }}</label>
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Silhkan Masukkan Kata Sandi">
+						<span class="label-input100">Password</span>
+                        <input id="password" class="input100  @error('password') is-invalid @enderror" type="password"
+                            name="password" placeholder="Silahkan Masukkan Password" required autocomplete="new-password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <span class="focus-input100"></span>
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="nim" type="number" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required autocomplete="nim" autofocus>
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Silhkan Masukkan Kata Sandi">
+						<span class="label-input100">Konfirmasi Password</span>
+                        <input id="password" class="input100  @error('password') is-invalid @enderror" type="password"
+                            name="password_confirmation" placeholder="Silahkan Masukkan Konfirmasi Password" required autocomplete="new-password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <span class="focus-input100"></span>
+                    </div>
 
-                                @error('nim')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+					<div class="flex-sb-m w-full p-b-30">
+						<div>
+                            {{-- <input type="checkbox" onclick="myFunction()"> Lihat Kata Sandi</div> --}}
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+						<div>
+							{{-- <a href="#" class="txt1">
+								Lupa Kata Sandi ?
+                            </a> --}}
+						</div>
+					</div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="nohp" class="col-md-4 col-form-label text-md-right">{{ __('Nomor HP') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="nohp" type="number" class="form-control @error('nohp') is-invalid @enderror" name="nohp" value="{{ old('nohp') }}" required autocomplete="nohp" autofocus>
-
-                                @error('nohp')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Register
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
     </div>
-</div>
+</body>
 @endsection
+
+@push('scriptlogin')
+<script>
+    $(function() {
+
+        @if (session('warning'))
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            Height: 1500,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'warning',
+            title: '{{session('warning')}}'
+        })
+        @endif
+    });
+
+
+</script>
+@endpush

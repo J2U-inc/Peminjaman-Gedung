@@ -60,7 +60,7 @@
                     <td style="text-align: center">{{ $p->awal_pinjam }}</td>
                     <td style="text-align: center">{{ $p->akhir_pinjam }}</td>
                     <td style="text-align: center">
-                        <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'info')}}">
+                        <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'secondary')}}">
                             {{ $p->status===1 ? 'diterima' : ($p->status===0 ? 'ditolak' : 'diproses')}}
                         </span>
                     </td>
@@ -130,10 +130,29 @@
         })
 
         Toast.fire({
-                icon: 'success',
-                title: '{{session('success')}}'
-            })
-        });
+            icon: 'success',
+            title: '{{session('success')}}'
+        })
+        @endif
+
+        @if (session('warning'))
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            Height: 1500,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'warning',
+            title: '{{session('warning')}}'
+        })
         @endif
 
         @if (session('status'))
@@ -150,11 +169,10 @@
         })
 
         Toast.fire({
-                icon: 'warning',
-                title: '{{session('status')}}'
-            })
-        });
+            icon: 'warning',
+            title: '{{session('status')}}'
         @endif
+    });
 
 </script>
 @endpush

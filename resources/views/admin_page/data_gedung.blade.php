@@ -86,6 +86,7 @@
 
 @push('script')
 <script>
+    $(function() {
         @if (session('success'))
         const Toast = Swal.mixin({
             toast: true,
@@ -101,11 +102,12 @@
         })
 
         Toast.fire({
-                icon: 'success',
-                title: '{{session('success')}}'
-            })
-        });
+            icon: 'success',
+            title: '{{session('success')}}'
+        })
         @endif
+    });
+
 </script>
 @endpush
 

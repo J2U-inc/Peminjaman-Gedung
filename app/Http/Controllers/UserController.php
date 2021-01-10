@@ -12,6 +12,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     //Perlu ini untuk smua controller (autentikasi)
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    //sampe sini
+
+
     public function index()
     {
         return view('user_page.index');

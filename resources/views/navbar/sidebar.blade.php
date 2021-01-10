@@ -13,7 +13,11 @@
           <img src="{{asset('adminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{route('admin.index')}}" class="d-block">{{$users = Auth::user()->name}}</a>
+            @if (Auth::user()->is_admin==1)
+                <a href="{{route('admin.index')}}" class="d-block">{{$users = Auth::user()->name}}</a>
+            @else
+                <a href="{{route('user.index')}}" class="d-block">{{$users = Auth::user()->name}}</a>
+            @endif
         </div>
       </div>
 
@@ -72,7 +76,7 @@
 
           @if (Auth::user()->is_admin==0)
           <li class="nav-item">
-            <a href="peminjaman/create" class="nav-link">
+            <a href="{{url('/user/peminjaman/create')}}" class="nav-link {{ request()->url() == "http://localhost:8000/user/peminjaman/create" ? "active" : "" }}">
               <i class="nav-icon fas fa-th"></i>
               <p>Ajukan Peminjaman</p>
             </a>
@@ -81,7 +85,7 @@
 
           @if (Auth::user()->is_admin==0)
           <li class="nav-item">
-            <a href="/user/peminjaman" class="nav-link">
+            <a href="/user/peminjaman" class="nav-link {{ request()->url() == "http://localhost:8000/user/peminjaman" ? "active" : "" }}">
               <i class="nav-icon fas fa-th"></i>
               <p>Data Peminjaman</p>
             </a>

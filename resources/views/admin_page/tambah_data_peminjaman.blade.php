@@ -170,9 +170,31 @@
                 startDate: moment().startOf('hour'), timePicker24Hour: true,
                 endDate: moment().startOf('hour').add(32, 'hour'),
                 locale: {
-                format: 'YY-MM-DD HH:mm:ss'
+                format: 'YYYY-MM-DD HH:mm:ss'
                 }
         });
+
+        @if (session('warning'))
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            Height: 1500,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'warning',
+            title: '{{session('warning')}}'
+        })
+        @endif
     });
+
+
 </script>
 @endpush

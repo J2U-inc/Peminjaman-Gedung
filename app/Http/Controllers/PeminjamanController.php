@@ -6,6 +6,7 @@ use App\Gedung;
 use App\Lembaga;
 use App\Peminjaman;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,16 @@ class PeminjamanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //Perlu ini untuk smua controller (autentikasi)
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    //sampe sini
+
+
+
     public function index()
     {
         $user = Auth::user();
@@ -81,6 +92,57 @@ class PeminjamanController extends Controller
         ]);
 
 
+        $tanggal = explode(" - ", $request->datetimes);
+        // dd($tanggal);
+        if($tanggal[0] < Carbon::now()){
+            return redirect('/admin/peminjaman/create')->with('warning',' Tidak bisa meminjam sebelum hari ini !');
+        }
+
+
+        // $cek = Peminjaman::where('gedung_id', $request->gedung_id)
+        //                     ->whereBetween('awal_pinjam', $tanggal)
+        //                     ->orWhere('gedung_id' , $request->gedung_id)
+        //                     ->whereBetween('akhir_pinjam', $tanggal)
+        //                     ->get();
+                            // if ($tanggal[0] < $tanggal[1]) {
+                            //     echo 'y';
+                            // }else{
+                            //     echo 'n';
+                            // }
+                            // dd($tanggal);
+                            // $asu = Peminjaman::find(62);
+                            // dump("akhir =".$asu->akhir_pinjam, "tanggal =". $tanggal[1]);
+                            // if ($asu->akhir_pinjam >= $tanggal[1]) {
+                            //     echo 'y';
+                            // }else{
+                            //     echo 'n';
+                            // }
+
+                            // dd();
+                            $cek = Peminjaman::where([
+                                ['gedung_id', '=', $request->gedung_id],
+                                ['status', '!=', '0'],
+                                ['awal_pinjam', '<=', $tanggal[0]],
+                                ['akhir_pinjam', '>=', $tanggal[1]],
+                            ])
+                            // ->whereBetween('awal_pinjam', $tanggal)
+                            // ->orWhere([
+                            //     ['gedung_id', '=', $request->gedung_id],
+                            //     ['status', '!=', '0'],
+                            // ])
+                            // ->orWhereBetween('akhir_pinjam', $tanggal)
+                            // ->where([
+                            //     ['awal_pinjam', '<=', $tanggal[0]],
+                            //     ['akhir_pinjam', '>=', $tanggal[1]],
+                            // ])
+                            ->get();
+
+
+        if($cek->isNotEmpty()){
+            return redirect('/admin/peminjaman/create')->with('warning','Gedung tidak dapat dipinjam !');
+        }
+
+
         $surat_peminjaman = null;
         if ($request->surat_peminjaman) {
             $surat_peminjaman = $request->surat_peminjaman->getClientOriginalName() . '-' . time()
@@ -88,7 +150,8 @@ class PeminjamanController extends Controller
             $request->surat_peminjaman->move(public_path('gambar'), $surat_peminjaman);
         }
         // dd($request->datetimes);
-        $tanggal = explode(" - ", $request->datetimes);
+
+
         $peminjaman = new Peminjaman();
         $peminjaman->gedung_id = $request->gedung_id;
         $peminjaman->user_id = $request->user_id;
@@ -223,7 +286,7 @@ class PeminjamanController extends Controller
 
         $peminjaman->save();
 
-        return redirect('/admin/peminjaman');
+        return redirect('/admin/peminjaman')->with('success','Pengajuan diterima !');
     }
 
     public function penolakan(Request $request,$id)
@@ -239,7 +302,7 @@ class PeminjamanController extends Controller
 
         $peminjaman->save();
 
-        return redirect('/admin/peminjaman');
+        return redirect('/admin/peminjaman')->with('warning','Pengajuan ditolak !');
     }
 
     public function riwayat()
