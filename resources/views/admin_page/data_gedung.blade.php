@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/admin/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
               <li class="breadcrumb-item active">Data Gedung</li>
             </ol>
           </div><!-- /.col -->
@@ -28,7 +28,7 @@
             <div class="card-body">
                 <a href="/admin/gedung/create">
                     <button type="button" class="btn btn-primary">
-                        Tambah Data
+                        <i class="fa fa-plus"></i>    Tambah Data
                     </button></a>
             </div>
             <div class="card-body">
@@ -56,10 +56,18 @@
                         <form method="POST" action="/admin/gedung/{{$g->id}}">
                             @csrf
                             @method('delete')
-                            <a href="/admin/gedung/{{ $g->id }}" class="btn btn-primary" style="width: 70px">Detail</a>
-                            <a href="/admin/gedung/{{ $g->id }}/edit" class="btn btn-warning" style="width: 70px">Edit</a>
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Antum yakin menghapus data ?')">
-                                Hapus
+                            <a href="/admin/gedung/{{ $g->id }}" class="btn btn-primary"
+                                data-toggle="tooltip" data-placement="top" title="Lihat Detail Data Gedung"
+                                style="width: 40px"><i class="nav-icon fa fa-info"></i></a>
+
+                            <a href="/admin/gedung/{{ $g->id }}/edit" class="btn btn-warning"
+                                data-toggle="tooltip" data-placement="top" title="Edit Data Gedung"
+                                style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></a>
+
+                            <button type="submit" class="btn btn-danger" data-toggle="tooltip"
+                                data-placement="top" title="Hapus Data Gedung" style="width: 40px"
+                                onclick="return confirm('Apakah Anda yakin akan menghapus data ?')">
+                                <i class="nav-icon fa fa-trash"></i>
                             </button>
                         </form>
                     </td>

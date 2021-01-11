@@ -96,7 +96,8 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer" style="background-color: white">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary"
+                  onclick="return confirm('Apakah Anda yakin akan mengubah data ?')">Simpan</button>
                 </div>
             </form>
         </div>

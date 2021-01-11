@@ -12,8 +12,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/admin/index">Home</a></li>
-              <li class="breadcrumb-item active">Data Peminjaman</li>
+              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
+              <li class="breadcrumb-item active">Riwayat Peminjaman</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -32,6 +32,7 @@
                   <thead>
                   <tr style="text-align: center">
                     <th>No</th>
+                    <th>Tanggal Pengajuan</th>
                     <th>Peminjam</th>
                     <th>Gedung</th>
                     <th>Awal Pinjam</th>
@@ -47,10 +48,16 @@
                     @foreach($peminjaman as $p)
                     <tr>
                     <td scope="row" style="text-align: center">{{$loop->iteration}}</td>
+                    @php
+                        $tanggal_pengajuan = date('d F Y ,  H:i', strtotime($p->created_at));
+                        $awal_pinjam = date('d F Y ,  H:i', strtotime($p->awal_pinjam));
+                        $akhir_pinjam = date('d F Y ,  H:i', strtotime($p->akhir_pinjam));
+                    @endphp
+                    <td style="text-align: center">{{ $tanggal_pengajuan }}</td>
                     <td style="text-align: center">{{ $p->user->name}}</td>
                     <td style="text-align: center">{{ $p->gedung->nama_gedung}}</td>
-                    <td style="text-align: center">{{ $p->awal_pinjam }}</td>
-                    <td style="text-align: center">{{ $p->akhir_pinjam }}</td>
+                    <td style="text-align: center">{{ $awal_pinjam }}</td>
+                    <td style="text-align: center">{{ $akhir_pinjam }}</td>
                     <td style="text-align: center">
                         <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'warning')}}">
                             {{ $p->status===1 ? 'diterima' : ($p->status===0 ? 'ditolak' : 'diproses')}}
@@ -64,7 +71,9 @@
                             @csrf
                             @method('delete')
 
-                            <a href="/admin/peminjaman/{{ $p->id }}" class="btn btn-primary" style="width: 70px">Detail</a>
+                            <a href="/admin/lihatriwayat/{{ $p->id }}" class="btn btn-primary"
+                                data-toggle="tooltip" data-placement="top" title="Lihat Detail Data Peminjaman"
+                                style="width: 40px"><i class="nav-icon fa fa-info"></i></a>
                             {{-- @if (Auth::user()->is_admin==1)
                             <a href="/admin/peminjaman/{{ $p->id }}/edit" class="btn btn-warning" style="width: 70px">Edit</a>
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Antum yakin menghapus data ?')">

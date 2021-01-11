@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Peminjaman;
 
 class UserController extends Controller
 {
@@ -55,7 +56,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('user_page.index' , compact('user'));
     }
 
     /**
@@ -67,7 +69,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('user_page.edit_profil' , ['user' => $user]);
+        return view('user_page.edit_profil' , compact('user'));
     }
 
     /**
@@ -79,7 +81,35 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'nim' => 'required',
+            'email' => 'required',
+            'nohp' => 'required',
+        ]);
+
+        $user = User::find($id);
+
+        $user->name = $request->name;
+        $user->nim = $request->nim;
+        $user->email = $request->email;
+        $user->nohp = $request->nohp;
+        $user->save();
+
+        // dd($user);
+
+
+        return redirect('/user/index')->with('success', 'Data berhasil diubah !');
+    }
+
+    public function cek()
+    {
+        $peminjaman = Peminjaman::with('gedung')
+                        ->where('status', 1)
+                        ->get();
+        // return $peminjaman;
+        $data = ["peminjaman" => $peminjaman];
+        return view('user_page.cek_tanggal', $data);
     }
 
     /**

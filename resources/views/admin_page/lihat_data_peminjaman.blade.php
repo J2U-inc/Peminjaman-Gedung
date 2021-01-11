@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
               <li class="breadcrumb-item "><a href="/admin/peminjaman">Data Peminjaman</a></li>
               <li class="breadcrumb-item active">Lihat Data Peminjaman</li>
             </ol>
@@ -27,15 +27,16 @@
       <div class="container-fluid">
         <div class="card">
             @if (Auth::user()->is_admin==1)
-            <div class="card-body">
+            <div class="card-body" style="margin-bottom: -40px">
                 {{-- persetujuan --}}
                 <div style="float: right">
                     <form action="/admin/persetujuan/{{$peminjaman->id}}" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="1" name="status">
-                        <button type="submit" class="btn btn-success ml-2" style="width: 80px; float: right">
-                            Terima
+                        <button type="submit" class="btn btn-success ml-2" style="width: 100px; float: right"
+                        onclick="return confirm('Apakah Anda yakin akan menyetujui peminjaman ?')">
+                        <i class="fa fa-check" aria-hidden="true"></i>    Terima
                         </button>
                     </form>
                 </div>
@@ -44,11 +45,13 @@
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="0" name="status">
-                        <button type="submit" class="btn btn-danger" style="width: 80px;float: right">
-                            Tolak
+                        <button type="submit" class="btn btn-danger" style="width: 100px;float: right"
+                        onclick="return confirm('Apakah Anda yakin akan menolak peminjaman ?')">
+                        <i class="fa fa-times" aria-hidden="true"></i>    Tolak
                         </button>
                     </form>
-                </div>
+                </div><br><br>
+                <hr style="border: 1px solid black;">
         </div>
         @endif
             {{-- konten --}}
@@ -60,6 +63,7 @@
                     $datetimes=array($peminjaman->awal_pinjam, $peminjaman->akhir_pinjam);
                     $tanggal=implode("-",$datetimes);
                     @endphp
+
                     <div class="form-group">
                         <label for="inputNamaGedung">Nama Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"

@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
               <li class="breadcrumb-item "><a href="/admin/peminjaman">Data Peminjaman</a></li>
               <li class="breadcrumb-item active">Edit Data Peminjaman</li>
             </ol>
@@ -128,7 +128,8 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer" style="background-color: white">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"
+                    onclick="return confirm('Apakah Anda yakin akan mengubah data ?')">Simpan</button>
                   </div>
             </form>
         </div>

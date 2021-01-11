@@ -12,7 +12,7 @@
         <a class="nav-link" data-widget="navbar-search" href="{{ route('logout') }}" role="button"
             onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();" style="color: white">
-          <i class="fas fa-power-off" style="color: white"></i>
+          <i class="fa fa-sign-out" style="color: white"></i>
           Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

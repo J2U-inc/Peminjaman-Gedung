@@ -190,6 +190,23 @@ class PeminjamanController extends Controller
         return view('admin_page.lihat_data_peminjaman', compact('peminjaman', 'gedung', 'user'));
     }
 
+    public function lihatriwayat($id)
+    {
+        $peminjaman = Peminjaman::with('gedung', 'user')
+                                ->find($id);
+        // $peminjaman = Peminjaman::find($id)
+        //     // ->select('gedung.id as gedung_id', 'gedung.nama_gedung', 'peminjaman.*', 'users.nim', 'users.email', 'users.nohp')
+        //     ->where('peminjaman.id', '=', $id)
+        //     ->join('gedung', 'gedung.id', '=', 'peminjaman.gedung_id')
+        //     ->join('users','peminjaman.user_id', '=', 'users.id')
+        //     // ->join('lembaga' , 'lembaga.id', '=' , 'peminjaman.lembaga_id')
+        //     ->get();
+        // return $peminjaman;
+        $gedung = Gedung::All();
+        $user = User::All();
+        return view('admin_page.lihat_riwayat_peminjaman', compact('peminjaman', 'gedung', 'user'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

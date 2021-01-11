@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sistem Peminjaman Gedung</title>
+   <!-- Favicon-->
+   <link rel="icon" type="image/x-icon" href="{{asset('landingPage/assets/img/logo.png')}}" />
+
+   {{-- font awesome --}}
+   <link rel="stylesheet" href="{{asset('font-awesome-4.7.0/css/font-awesome.min.css')}}">
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -107,11 +113,12 @@
             "columnDefs": [
                 {"sortable": false, "targets": []},
                 {"width" : "2%", "targets" : [0]},
-                {"width" : "8%", "targets" : [1]},
-                {"width" : "8%", "targets" : [2]},
-                {"width" : "15%", "targets" : [3,4]},
-                {"width" : "8%", "targets" : [5]},
-                {"width" : "25%", "targets" : [6]}
+                {"width" : "13%", "targets" : [1]},
+                {"width" : "13%", "targets" : [2]},
+                {"width" : "13%", "targets" : [3]},
+                {"width" : "13%", "targets" : [4,5]},
+                {"width" : "8%", "targets" : [6]},
+                {"width" : "20%", "targets" : [7]}
             ]
         });
     </script>

@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/admin/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
               <li class="breadcrumb-item "><a href="/admin/gedung">Data Gedung</a></li>
               <li class="breadcrumb-item active">Tambah Data Gedung</li>
             </ol>
@@ -74,7 +74,7 @@
 
                     <div class="form-group">
                         <label for="showDeskripsiRuangan">Deskripsi Gedung / Ruangan</label>
-                        <textarea class="form-control" id="showDeskripsiRuangan" readonly
+                        <textarea class="form-control" id="showDeskripsiRuangan" style="height: 150px" readonly
                             placeholder="Silahkan Masukkan Deskripsi Ruangan" name="deskripsi">{{old('deskripsi') ? old('deskripsi') : $gedung->deskripsi}}</textarea>
                             @error('deskripsi')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -92,9 +92,9 @@
                         </div>
                     </div>
 
-                    <div class="card-footer">
+                    {{-- <div class="card-footer">
                         <a href="/admin/gedung" class="btn btn-warning">kembali</a>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- /.card-body -->
             </form>

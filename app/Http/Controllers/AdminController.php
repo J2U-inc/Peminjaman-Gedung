@@ -14,7 +14,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $peminjaman = Peminjaman::with('gedung')->get();
+        $peminjaman = Peminjaman::with('gedung')
+                        ->where('status', 1)
+                        ->get();
         // return $peminjaman;
         $data = ["peminjaman" => $peminjaman];
         return view('admin_page.index', $data);

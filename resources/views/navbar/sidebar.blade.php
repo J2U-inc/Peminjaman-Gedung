@@ -10,7 +10,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('adminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('adminLTE/dist/img/user.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
             @if (Auth::user()->is_admin==1)
@@ -27,7 +27,7 @@
         @if (Auth::user()->is_admin==1)
           <li class="nav-item">
             <a href="/admin/peminjaman" class="nav-link {{ strpos(request()->url(),'/admin/peminjaman') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-table"></i>
               <p>Data Peminjaman</p>
             </a>
           </li>
@@ -36,7 +36,7 @@
           @if (Auth::user()->is_admin==1)
           <li class="nav-item">
             <a href="/admin/gedung" class="nav-link {{ strpos(request()->url(),'/admin/gedung') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-building"></i>
               <p>Data Gedung</p>
             </a>
           </li>
@@ -50,7 +50,7 @@
           @if (Auth::user()->is_admin==1)
           <li class="nav-item">
             <a href="/admin/riwayatpeminjaman" class="nav-link {{ strpos(request()->url(),'/admin/riwayatpeminjaman') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-history"></i>
               <p>Riwayat Peminjaman</p>
             </a>
           </li>
@@ -65,10 +65,21 @@
             </a>
           </li>
           @endif --}}
+
+          @if (Auth::user()->is_admin==0)
+          <li class="nav-item">
+            <a href="{{url('/user/index')}}" class="nav-link {{ request()->url() == "http://localhost:8000/user/index" ? "active" : "" }}">
+              <i class="nav-icon fa fa-user"></i>
+              <p>Profil</p>
+            </a>
+          </li>
+          @endif
+
+
           @if (Auth::user()->is_admin==0)
         <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{url('/user/cektanggal')}}" class="nav-link {{ request()->url() == "http://localhost:8000/user/cektanggal" ? "active" : "" }}">
+              <i class="nav-icon fa fa-calendar"></i>
               <p>Cek Jadwal</p>
             </a>
           </li>
@@ -77,7 +88,7 @@
           @if (Auth::user()->is_admin==0)
           <li class="nav-item">
             <a href="{{url('/user/peminjaman/create')}}" class="nav-link {{ request()->url() == "http://localhost:8000/user/peminjaman/create" ? "active" : "" }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-external-link"></i>
               <p>Ajukan Peminjaman</p>
             </a>
           </li>
@@ -86,7 +97,7 @@
           @if (Auth::user()->is_admin==0)
           <li class="nav-item">
             <a href="/user/peminjaman" class="nav-link {{ request()->url() == "http://localhost:8000/user/peminjaman" ? "active" : "" }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-table"></i>
               <p>Data Peminjaman</p>
             </a>
           </li>
