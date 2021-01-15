@@ -56,6 +56,28 @@
                             </span>
                         @enderror
 						<span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Silahkan Masukkan Fakultas Anda Anda">
+						<span class="label-input100">Fakultas</span>
+                        <input class="input100  @error('fakultas') is-invalid @enderror" type="text" name="fakultas" placeholder="Nama Fakultas, contoh : Sains dan Teknologi" value="{{ old('fakultas') }}" required autocomplete="fakultas">
+                        @error('fakultas')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+						<span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Silahkan Masukkan Prodi / Jurusan Anda Anda">
+						<span class="label-input100">Jurusan</span>
+                        <input class="input100  @error('jurusan') is-invalid @enderror" type="text" name="jurusan" placeholder="Nama Jurusan, contoh : Teknik Informatika" value="{{ old('jurusan') }}" required autocomplete="jurusan">
+                        @error('jurusan')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Silhkan Masukkan Kata Sandi">

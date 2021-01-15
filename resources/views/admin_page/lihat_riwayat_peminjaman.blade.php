@@ -73,6 +73,24 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Fakultas</label>
+                        <input type="text" class="form-control"
+                            placeholder="Silahkan Masukkan Nama Fakultas" name="fakultas" value="{{strlen($peminjaman->user->fakultas) > 0 ? $peminjaman->user->fakultas : '-'}}" readonly>
+                            @error('fakultas')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jurusan</label>
+                        <input type="text" class="form-control"
+                            placeholder="Silahkan Masukkan Nama Jurusan" name="jurusan" value="{{strlen($peminjaman->user->jurusan) > 0 ? $peminjaman->user->jurusan : '-'}}" readonly>
+                            @error('jurusan')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="inputKeperluan">Nama Organisasi/Lembaga</label>
                         <input type="text" class="form-control" id="inputKeperluan"
                             placeholder="Silahkan Masukkan Keperluan" name="lembaga" value="{{$peminjaman->lembaga}}" readonly>

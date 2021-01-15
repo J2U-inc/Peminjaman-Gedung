@@ -33,7 +33,7 @@
             </div>
             <div class="card-body">
                 {{-- mulai dari sini masukkan data table --}}
-                <table id="example1" class="table table-bordered table-hover">
+                <table id="example1" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr style="text-align: center">
                     <th>No</th>

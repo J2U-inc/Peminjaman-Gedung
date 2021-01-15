@@ -11,10 +11,17 @@
             <h1 class="m-0">Data Peminjaman</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
-              <li class="breadcrumb-item active">Data Peminjaman</li>
-            </ol>
+                @if (Auth::user()->is_admin==1)
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
+                        <li class="breadcrumb-item active">Data Peminjaman</li>
+                    </ol>
+                @else()
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/user/index">Beranda</a></li>
+                        <li class="breadcrumb-item active">Data Peminjaman</li>
+                    </ol>
+                @endif
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -36,7 +43,7 @@
 
             <div class="card-body">
                 {{-- mulai dari sini masukkan data table --}}
-                <table id="datapeminjaman" class="table table-bordered table-hover">
+                <table id="datapeminjaman" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr style="text-align: center">
                     <th>No</th>
@@ -67,8 +74,21 @@
                     <td style="text-align: center">{{ $awal_pinjam }}</td>
                     <td style="text-align: center">{{ $akhir_pinjam }}</td>
                     <td style="text-align: center">
-                        <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'secondary')}}">
-                            {{ $p->status===1 ? 'diterima' : ($p->status===0 ? 'ditolak' : 'diproses')}}
+                        {{-- <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'secondary')}}">
+                            {{ $p->status===1 ? 'Diterima' : ($p->status===0 ? 'Ditolak' : 'Diproses')}}
+                        </span> --}}
+                        <span class="badge
+                            @if($p->status===1)bg-success
+                                @elseif($p->status===0)bg-danger
+                                @elseif($p->status===2)bg-primary
+                                @elseif($p->status==null)bg-secondary
+                            @endif
+                            ">
+                            @if($p->status===1)Diterima
+                                @elseif($p->status===0)Ditolak
+                                @elseif($p->status===2)Selesai
+                                @elseif($p->status==null)Diproses
+                            @endif
                         </span>
                     </td>
                     {{-- <td style="text-align: center">{{$p->nama_lembaga}}</td> --}}
@@ -84,15 +104,28 @@
                                 style="width: 40px"><i class="nav-icon fa fa-info"></i></a>
 
                             @if (Auth::user()->is_admin==1)
-                            <a href="/admin/peminjaman/{{ $p->id }}/edit" class="btn btn-warning"
-                                data-toggle="tooltip" data-placement="top" title="Edit Data Peminjaman"
-                                style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></a>
+                                @if ($p->status===null)
+                                    <a href="/admin/peminjaman/{{ $p->id }}/edit" class="btn btn-warning"
+                                        data-toggle="tooltip" data-placement="top" title="Edit Data Peminjaman"
+                                        style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></a>
 
-                            <button type="submit" class="btn btn-danger" style="width: 40px"
-                                data-toggle="tooltip" data-placement="top" title="Hapus Data Peminjaman"
-                                onclick="return confirm('Apakah Anda yakin akan menghapus data ?')">
-                                <i class="nav-icon fa fa-trash"></i>
-                            </button>
+                                    <button type="submit" class="btn btn-danger" style="width: 40px"
+                                        data-toggle="tooltip" data-placement="top" title="Hapus Data Peminjaman"
+                                        onclick="return confirm('Apakah Anda yakin akan menghapus data ?')">
+                                        <i class="nav-icon fa fa-trash"></i>
+                                    </button>
+                                @else()
+                                    <button class="btn btn-warning" disabled
+                                        data-toggle="tooltip" data-placement="top" title="Edit Data Peminjaman"
+                                        style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></button>
+
+                                    <button type="" class="btn btn-danger" style="width: 40px"
+                                        data-toggle="tooltip" data-placement="top" title="Hapus Data Peminjaman"
+                                        disabled>
+                                        <i class="nav-icon fa fa-trash"></i>
+                                    </button>
+                                @endif
+
                             @endif
                         </form>
                     </td>

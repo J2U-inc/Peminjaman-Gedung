@@ -47,13 +47,13 @@
         tmp['title']=obj.gedung.nama_gedung;
         tmp['start']=obj.awal_pinjam;
         tmp['end']=obj.akhir_pinjam;
-        tmp['allDay']=false;
 
         return tmp;
     })
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'id',
             timeZone: 'Asia/Jakarta',
             themeSystem: 'bootstrap',
             headerToolbar: {
@@ -62,9 +62,15 @@
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
 
+
+
           initialView: 'dayGridMonth',
           events: data,
-          timeFormat: 'H(:mm)'
+          eventTimeFormat: {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false
+          }
 
         });
         calendar.render();

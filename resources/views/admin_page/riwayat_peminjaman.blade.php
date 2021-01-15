@@ -28,7 +28,7 @@
 
             <div class="card-body">
                 {{-- mulai dari sini masukkan data table --}}
-                <table id="datapeminjaman" class="table table-bordered table-hover">
+                <table id="datapeminjaman" class="table table-bordered table-striped table-hover">
                   <thead>
                   <tr style="text-align: center">
                     <th>No</th>
@@ -59,8 +59,21 @@
                     <td style="text-align: center">{{ $awal_pinjam }}</td>
                     <td style="text-align: center">{{ $akhir_pinjam }}</td>
                     <td style="text-align: center">
-                        <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'warning')}}">
+                        {{-- <span class="badge bg-{{$p->status===1 ? 'success' : ($p->status===0 ? 'danger' : 'warning')}}">
                             {{ $p->status===1 ? 'diterima' : ($p->status===0 ? 'ditolak' : 'diproses')}}
+                        </span> --}}
+                        <span class="badge
+                            @if($p->status===1)bg-success
+                                @elseif($p->status===0)bg-danger
+                                @elseif($p->status===2)bg-primary
+                                @elseif($p->status==null)bg-secondary
+                            @endif
+                            ">
+                            @if($p->status===1)Diterima
+                                @elseif($p->status===0)Ditolak
+                                @elseif($p->status===2)Selesai
+                                @elseif($p->status==null)Diproses
+                            @endif
                         </span>
                     </td>
                     {{-- <td style="text-align: center">{{$p->nama_lembaga}}</td> --}}

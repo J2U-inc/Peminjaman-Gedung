@@ -29,6 +29,7 @@
             @if (Auth::user()->is_admin==1)
             <div class="card-body" style="margin-bottom: -40px">
                 {{-- persetujuan --}}
+                @if($peminjaman->status===null)
                 <div style="float: right">
                     <form action="/admin/persetujuan/{{$peminjaman->id}}" method="POST">
                         @method('PUT')
@@ -50,8 +51,22 @@
                         <i class="fa fa-times" aria-hidden="true"></i>    Tolak
                         </button>
                     </form>
-                </div><br><br>
+                </div>
+                @elseif($peminjaman->status===1)
+                <div>
+                    <form action="/admin/penyelesaian/{{$peminjaman->id}}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" value="2" name="status">
+                        <button type="submit" class="btn btn-primary" style="width: 100px;float: right"
+                        onclick="return confirm('Apakah Anda yakin akan menyelesaikan peminjaman ?')">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>    Selesai
+                        </button>
+                    </form>
+                </div>
+                <br><br>
                 <hr style="border: 1px solid black;">
+                @endif
         </div>
         @endif
             {{-- konten --}}
@@ -77,7 +92,7 @@
                         <label for="inputNamaGedung">NIM Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
                             placeholder="Silahkan Masukkan NIM Peminjam" name="nama_peminjam" value="{{$peminjaman->user->nim == 0 ? '-' : $peminjaman->user->nim}}" readonly>
-                            @error('nama_peminjam')
+                            @error('nim')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
@@ -87,7 +102,7 @@
                         <label for="inputNamaGedung">Email Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
                             placeholder="Silahkan Masukkan NIM Peminjam" name="nama_peminjam" value="{{$peminjaman->user->email}}" readonly>
-                            @error('nama_peminjam')
+                            @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
@@ -96,7 +111,25 @@
                         <label for="inputNamaGedung">Nomor HP Peminjam</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
                             placeholder="Silahkan Masukkan No HP Peminjam" name="nohp" value="{{strlen($peminjaman->user->nohp) > 0 ? $peminjaman->user->nohp : '-'}}" readonly>
-                            @error('nama_peminjam')
+                            @error('nohp')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fakultas</label>
+                        <input type="text" class="form-control"
+                            placeholder="Silahkan Masukkan Nama Fakultas" name="fakultas" value="{{strlen($peminjaman->user->fakultas) > 0 ? $peminjaman->user->fakultas : '-'}}" readonly>
+                            @error('fakultas')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jurusan</label>
+                        <input type="text" class="form-control"
+                            placeholder="Silahkan Masukkan Nama Jurusan" name="jurusan" value="{{strlen($peminjaman->user->jurusan) > 0 ? $peminjaman->user->jurusan : '-'}}" readonly>
+                            @error('jurusan')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>

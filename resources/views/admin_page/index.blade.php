@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Beranda</h1>
 
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -47,7 +47,6 @@
         tmp['title']=obj.gedung.nama_gedung;
         tmp['start']=obj.awal_pinjam;
         tmp['end']=obj.akhir_pinjam;
-        tmp['allDay']=false;
 
         return tmp;
     })
@@ -62,9 +61,15 @@
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
 
+
           initialView: 'dayGridMonth',
           events: data,
-          timeFormat: 'H(:mm)'
+          eventTimeFormat: {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false
+          }
+
 
         });
         calendar.render();

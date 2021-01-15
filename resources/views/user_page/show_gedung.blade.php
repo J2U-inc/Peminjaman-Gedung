@@ -8,11 +8,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Tambah Data Gedung</h1>
+            <h1 class="m-0">Lihat Data Gedung</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
               <li class="breadcrumb-item "><a href="/admin/gedung">Data Gedung</a></li>
               <li class="breadcrumb-item active">Tambah Data Gedung</li>
             </ol>
@@ -26,33 +26,40 @@
     <div class="content">
       <div class="container-fluid">
         <div class="card">
+            <div class="card-header">
+                <a href="/user/cektanggal" class="btn btn-primary" style="float: right"><i class="fa fa-calendar"></i>    Cek Jadwal</a>
+            </div>
             {{-- konten --}}
-            <form method="POST" action="/admin/gedung" enctype="multipart/form-data">
+            <form method="GET" action="/user/gedung/{id}" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="card-body">
 
                     <div class="form-group">
-                        <label for="inputNamaGedung">Nama Gedung / Ruangan</label>
-                        <input type="text" class="form-control" id="inputNamaGedung"
-                            placeholder="Silahkan Masukkan Nama Gedung / Ruangan" name="nama_gedung" value="{{old('nama_gedung')}}">
+                        <label for="showNamaGedung">Nama Gedung / Ruangan</label>
+                        <input type="text" class="form-control" id="showNamaGedung"
+                            placeholder="Silahkan Masukkan Nama Ruangan" name="nama_gedung"
+                                value="{{old('title') ? old('title') : $gedung->nama_gedung}}" readonly>
                             @error('nama_gedung')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="inputLuasGedung">Luas Gedung / Ruangan (M2)</label>
-                        <input type="number" class="form-control" id="inputLuasGedung"
-                            placeholder="Silahkan Masukkan Luas Gedung / Ruangan dalam M2" name="luas" value="{{old('luas')}}">
+                        <label for="showLuasGedung">Luas Gedung / Ruangan (M2)</label>
+                        <input type="text" class="form-control" id="showLuasGedung"
+                            placeholder="Silahkan Masukkan Nama Ruangan" name="luas"
+                                value="{{old('title') ? old('title') : $gedung->luas}} m2" readonly>
                             @error('luas')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="inputKapasitasGedung">Kapasitas Gedung / Ruangan</label>
-                        <input type="number" class="form-control" id="inputKapasitasGedung"
-                            placeholder="Silahkan Masukkan Kapasitas Gedung / Ruangan" name="kapasitas" value="{{old('kapasitas')}}">
+                        <label for="showKapasitasGedung">Kapasitas Gedung / Ruangan</label>
+                        <input type="text" class="form-control" id="showKapasitasGedung"
+                            placeholder="Silahkan Masukkan Nama Ruangan" name="kapasitas"
+                                value="{{old('title') ? old('title') : $gedung->kapasitas}} orang" readonly>
                             @error('kapasitas')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -61,37 +68,38 @@
                     <div class="form-group">
                         <label for="inputFungsiGedung">Fungsi Gedung / Ruangan</label>
                         <input type="text" class="form-control" id="inputFungsiGedung"
-                            placeholder="Silahkan Masukkan Fungsi Gedung / Ruangan" name="fungsi" value="{{old('fungsi')}}">
+                            placeholder="Silahkan Masukkan Nama Ruangan" name="fungsi"
+                                value="{{old('title') ? old('title') : $gedung->fungsi}}" readonly>
                             @error('fungsi')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="inputDeskripsiRuangan">Deskripsi Gedung / Ruangan</label>
-                        <textarea class="form-control" id="inputDeskripsiRuangan" style="height: 150px"
-                            placeholder="Silahkan Masukkan Deskripsi Ruangan" name="deskripsi">{{old('deskripsi')}}</textarea>
+                        <label for="showDeskripsiRuangan">Deskripsi Gedung / Ruangan</label>
+                        <textarea class="form-control" id="showDeskripsiRuangan" style="height: 150px" readonly
+                            placeholder="Silahkan Masukkan Deskripsi Ruangan" name="deskripsi">{{old('deskripsi') ? old('deskripsi') : $gedung->deskripsi}}</textarea>
                             @error('deskripsi')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
+                      </div>
+
+                    <div class="form-group">
+                        <label for="foto_ruangan">Foto Gedung/Ruangan</label><br>
+                            @if ($gedung->foto)
+                                <img src="/gambar/{{$gedung->foto}}" width="300">
+                            @else
+                                <p>Belum ada foto ruangan</p>
+                            @endif
+                        <div class="input-group">
+                        </div>
                     </div>
 
-                  <div class="form-group">
-                    <label for="foto_ruangan">Foto Gedung/Ruangan</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="form-control-file" id="foto" name="foto">
-                            @error('foto')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                      </div>
-                    </div>
-                  </div>
+                    {{-- <div class="card-footer">
+                        <a href="/admin/gedung" class="btn btn-warning">kembali</a>
+                    </div> --}}
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer" style="background-color: white">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
             </form>
         </div>
       </div>

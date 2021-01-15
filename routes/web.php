@@ -53,12 +53,15 @@ Route::put('/admin/peminjaman/{id}', 'PeminjamanController@update')->middleware(
 Route::delete('/admin/peminjaman/{id}', 'PeminjamanController@destroy')->middleware('is_admin');
 Route::put('/admin/persetujuan/{id}', 'PeminjamanController@persetujuan')->middleware('is_admin');
 Route::put('/admin/penolakan/{id}', 'PeminjamanController@penolakan')->middleware('is_admin');
+Route::put('/admin/penyelesaian/{id}', 'PeminjamanController@penyelesaian')->middleware('is_admin');
 Route::get('/admin/lihatriwayat/{id}' , 'PeminjamanController@lihatriwayat')->name('peminjaman.show');
 
 
 //user
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('user/index', 'UserController@index')->name('user.index'); //login user
+Route::get('user/gedung/{id}', 'UserController@showgedung')->name('user.gedung');
+Route::get('user/profil', 'UserController@profil');
 // Route::get('user/edit_profil/{id}', 'UserController@edit');
 
 Route::get('/user/index/{id}', 'UserController@show'); //profil

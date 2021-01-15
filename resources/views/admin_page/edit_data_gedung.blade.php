@@ -73,7 +73,7 @@
 
                     <div class="form-group">
                         <label for="showDeskripsiRuangan">Deskripsi Gedung / Ruangan</label>
-                        <textarea class="form-control" id="showDeskripsiRuangan"
+                        <textarea class="form-control" id="showDeskripsiRuangan" style="height: 150px"
                             placeholder="Silahkan Masukkan Deskripsi Ruangan" name="deskripsi">{{old('deskripsi') ? old('deskripsi') : $gedung->deskripsi}}</textarea>
                             @error('deskripsi')
                                 <div class="alert alert-danger">{{ $message }}</div>

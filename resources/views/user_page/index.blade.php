@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Profil</h1>
+            {{-- <h1 class="m-0">INI INDEX</h1> --}}
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-              <li class="breadcrumb-item active">Profil</li>
+              {{-- <li class="breadcrumb-item active">Profil</li> --}}
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,61 +24,30 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-              <div class="card">
-                  {{-- konten --}}
-                  <form method="GET" action="/user/index/{id}" enctype="multipart/form-data">
-                      @csrf
-                      @method('PUT')
-                      <div class="card-body">
-
-                        <div class="form-group">
-                            <label for="showNama">Nama</label>
-                            <input type="text" class="form-control" id="showNama"
-                                placeholder="Silahkan Masukkan Nama Anda" name="name"
-                                    value="{{old('title') ? old('title') : $users = Auth::user()->name}}" readonly>
-                                @error('name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="showNIM">NIM</label>
-                            <input type="text" class="form-control" id="showNIM"
-                                placeholder="Silahkan Masukkan NIM Anda" name="nim"
-                                    value="{{old('title') ? old('title') : $users = Auth::user()->nim}}" readonly>
-                                @error('nim')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="showEmail">Email</label>
-                            <input type="text" class="form-control" id="showEmail"
-                                placeholder="Silahkan Masukkan Email Anda" name="email"
-                                    value="{{old('title') ? old('title') : $users = Auth::user()->email}}" readonly>
-                                @error('email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="showNoHP">Nomor HP</label>
-                            <input type="text" class="form-control" id="showNoHP"
-                                placeholder="Silahkan Masukkan Nomor HP Anda" name="nohp"
-                                    value="{{old('title') ? old('title') : $users = Auth::user()->nohp}}" readonly>
-                                @error('nohp')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                        </div><br>
-
-
-                        <div class="form-group">
-                            <a href="/user/index/{{Auth::user()->id}}/edit" class="btn btn-warning"><i class="nav-icon fa fa-pencil-square-o"></i>     Edit Profil</a>
+              {{-- <div class="card"> --}}
+                  <div class="row">
+                    @foreach ($gedung as $g)
+                      <div class="col-sm-4">
+                          <div class="card">
+                            <div class="card-body" >
+                                <h4 class="card-header" style="text-align: center"><strong>{{$g->nama_gedung}}</strong></h4>
+                                <img class="card-img-top" src="/gambar/{{$g->foto}}" alt="Foto Gedung" style="max-width: 100%; height: auto;">
+                                <div class="card-body">
+                                {{-- <p class="card-text">{{$g->fungsi}}</p> --}}
+                                <div style="text-align: center">
+                                    <a href="/user/gedung/{{ $g->id }}" class="btn btn-primary" style="float: bottom">Detail Gedung</a>
+                                </div>
+                                </div>
+                            </div>
                         </div>
                       </div>
-                      <!-- /.card-body -->
-                  </form>
-              </div>
+                      @endforeach
+
+                  </div>
+
+
+
+              {{-- </div> --}}
             </div>
           </div>
 

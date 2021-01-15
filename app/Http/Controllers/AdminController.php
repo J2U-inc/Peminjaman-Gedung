@@ -16,6 +16,7 @@ class AdminController extends Controller
     {
         $peminjaman = Peminjaman::with('gedung')
                         ->where('status', 1)
+                        ->orWhere('status', 2)
                         ->get();
         // return $peminjaman;
         $data = ["peminjaman" => $peminjaman];

@@ -98,27 +98,6 @@ class PeminjamanController extends Controller
             return redirect('/admin/peminjaman/create')->with('warning',' Tidak bisa meminjam sebelum hari ini !');
         }
 
-
-        // $cek = Peminjaman::where('gedung_id', $request->gedung_id)
-        //                     ->whereBetween('awal_pinjam', $tanggal)
-        //                     ->orWhere('gedung_id' , $request->gedung_id)
-        //                     ->whereBetween('akhir_pinjam', $tanggal)
-        //                     ->get();
-                            // if ($tanggal[0] < $tanggal[1]) {
-                            //     echo 'y';
-                            // }else{
-                            //     echo 'n';
-                            // }
-                            // dd($tanggal);
-                            // $asu = Peminjaman::find(62);
-                            // dump("akhir =".$asu->akhir_pinjam, "tanggal =". $tanggal[1]);
-                            // if ($asu->akhir_pinjam >= $tanggal[1]) {
-                            //     echo 'y';
-                            // }else{
-                            //     echo 'n';
-                            // }
-
-                            // dd();
                             $cek = Peminjaman::where([
                                 ['gedung_id', '=', $request->gedung_id],
                                 ['status', '!=', '0'],
@@ -322,10 +301,26 @@ class PeminjamanController extends Controller
         return redirect('/admin/peminjaman')->with('warning','Pengajuan ditolak !');
     }
 
+    public function penyelesaian(Request $request,$id)
+    {
+
+        // return $request->all();
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+        $peminjaman = Peminjaman::find($id);
+        $peminjaman->status = $request->status;
+
+        $peminjaman->save();
+
+        return redirect('/admin/peminjaman')->with('success','Pengajuan Selesai !');
+    }
+
     public function riwayat()
     {
         $peminjaman = Peminjaman::with('gedung')
-        ->where('status', 1)
+        ->where('status', 2)
         ->latest()
         ->get();
 

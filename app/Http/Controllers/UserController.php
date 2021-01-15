@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Gedung;
 use App\User;
 use Illuminate\Http\Request;
 use App\Peminjaman;
@@ -24,7 +25,13 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('user_page.index');
+        $gedung = Gedung::All();
+        return view('user_page.index' , compact('gedung'));
+    }
+
+    public function profil()
+    {
+        return view('user_page.profil');
     }
 
     /**
@@ -60,6 +67,12 @@ class UserController extends Controller
         return view('user_page.index' , compact('user'));
     }
 
+    public function showgedung($id)
+    {
+        $gedung = Gedung::find($id);
+        return view('user_page.show_gedung' , compact('gedung'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -86,6 +99,8 @@ class UserController extends Controller
             'nim' => 'required',
             'email' => 'required',
             'nohp' => 'required',
+            'fakultas' => 'required',
+            'jurusan' => 'required',
         ]);
 
         $user = User::find($id);
@@ -94,18 +109,21 @@ class UserController extends Controller
         $user->nim = $request->nim;
         $user->email = $request->email;
         $user->nohp = $request->nohp;
+        $user->fakultas = $request->fakultas;
+        $user->jurusan = $request->jurusan;
         $user->save();
 
         // dd($user);
 
 
-        return redirect('/user/index')->with('success', 'Data berhasil diubah !');
+        return redirect('/user/profil')->with('success', 'Data berhasil diubah !');
     }
 
     public function cek()
     {
         $peminjaman = Peminjaman::with('gedung')
                         ->where('status', 1)
+                        ->orWhere('status', 2)
                         ->get();
         // return $peminjaman;
         $data = ["peminjaman" => $peminjaman];

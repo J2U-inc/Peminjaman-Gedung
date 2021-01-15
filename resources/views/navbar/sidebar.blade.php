@@ -69,6 +69,15 @@
           @if (Auth::user()->is_admin==0)
           <li class="nav-item">
             <a href="{{url('/user/index')}}" class="nav-link {{ request()->url() == "http://localhost:8000/user/index" ? "active" : "" }}">
+              <i class="nav-icon fa fa-home"></i>
+              <p>Beranda</p>
+            </a>
+          </li>
+          @endif
+
+          @if (Auth::user()->is_admin==0)
+          <li class="nav-item">
+            <a href="{{url('/user/profil')}}" class="nav-link {{ request()->url() == "http://localhost:8000/user/profil" ? "active" : "" }}">
               <i class="nav-icon fa fa-user"></i>
               <p>Profil</p>
             </a>
