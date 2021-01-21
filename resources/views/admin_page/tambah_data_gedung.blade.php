@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label for="inputNamaGedung">Nama Gedung / Ruangan</label>
                         <input type="text" class="form-control" id="inputNamaGedung"
-                            placeholder="Silahkan Masukkan Nama Gedung / Ruangan" name="nama_gedung" value="{{old('nama_gedung')}}">
+                            placeholder="Silahkan Masukkan Nama Gedung / Ruangan" name="nama_gedung" value="{{old('nama_gedung')}}" autocomplete="off">
                             @error('nama_gedung')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label for="inputLuasGedung">Luas Gedung / Ruangan (M2)</label>
                         <input type="number" class="form-control" id="inputLuasGedung"
-                            placeholder="Silahkan Masukkan Luas Gedung / Ruangan dalam M2" name="luas" value="{{old('luas')}}">
+                            placeholder="Silahkan Masukkan Luas Gedung / Ruangan dalam M2" name="luas" value="{{old('luas')}}" autocomplete="off">
                             @error('luas')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <label for="inputKapasitasGedung">Kapasitas Gedung / Ruangan</label>
                         <input type="number" class="form-control" id="inputKapasitasGedung"
-                            placeholder="Silahkan Masukkan Kapasitas Gedung / Ruangan" name="kapasitas" value="{{old('kapasitas')}}">
+                            placeholder="Silahkan Masukkan Kapasitas Gedung / Ruangan" name="kapasitas" value="{{old('kapasitas')}}" autocomplete="off">
                             @error('kapasitas')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -61,16 +61,16 @@
                     <div class="form-group">
                         <label for="inputFungsiGedung">Fungsi Gedung / Ruangan</label>
                         <input type="text" class="form-control" id="inputFungsiGedung"
-                            placeholder="Silahkan Masukkan Fungsi Gedung / Ruangan" name="fungsi" value="{{old('fungsi')}}">
+                            placeholder="Silahkan Masukkan Fungsi Gedung / Ruangan" name="fungsi" value="{{old('fungsi')}}" autocomplete="off">
                             @error('fungsi')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="inputDeskripsiRuangan">Deskripsi Gedung / Ruangan</label>
-                        <textarea class="form-control" id="inputDeskripsiRuangan" style="height: 150px"
-                            placeholder="Silahkan Masukkan Deskripsi Ruangan" name="deskripsi">{{old('deskripsi')}}</textarea>
+                        <label for="inputFasilitasRuangan">Fasilitas Gedung / Ruangan</label>
+                        <textarea class="form-control" id="inputFasilitasRuangan" style="height: 150px"
+                            placeholder="Silahkan Masukkan Fasilitas Ruangan" name="deskripsi">{{old('deskripsi')}}</textarea>
                             @error('deskripsi')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -87,6 +87,19 @@
                       </div>
                     </div>
                   </div>
+{{-- ---------------------------------------------------------------------------------------------------------------- --}}
+                  <div class="form-group">
+                    <label for="foto_dalam">Foto Dalam Gedung/Ruangan</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="form-control-file" id="foto_dalam" name="foto_dalam[]" multiple>
+                            @error('foto_dalam')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer" style="background-color: white">

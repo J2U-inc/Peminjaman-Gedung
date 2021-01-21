@@ -43,9 +43,9 @@
                             <input type="checkbox" onclick="myFunction()"> Lihat Kata Sandi</div>
 
 						<div>
-							{{-- <a href="#" class="txt1">
-								Lupa Kata Sandi ?
-                            </a> --}}
+							<a href="{{ route('password.request') }}" class="txt1">
+								Lupa Password ?
+                            </a>
 						</div>
 					</div>
 

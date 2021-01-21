@@ -53,6 +53,7 @@ class GedungController extends Controller
             'fungsi' => 'required',
             'deskripsi' => 'required|min:10',
             'foto' => 'mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'foto_dalam.*' => 'mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $imgName=null;
@@ -62,6 +63,16 @@ class GedungController extends Controller
             $request->foto->move(public_path('gambar'), $imgName);
         }
 
+        if($request->hasFile('foto_dalam')){
+            foreach($request->file('foto_dalam') as $file){
+                    $imgNameD = $file->getClientOriginalName() . '-' . time()
+                                            . '.' . $file->extension();
+                    $file->move(public_path('gambar'), $imgNameD);
+                    $dataFotoDalam[] = $imgNameD;
+
+            }
+        }
+
         $gedung = new Gedung();
         $gedung->nama_gedung = $request->nama_gedung;
         $gedung->luas = $request->luas;
@@ -69,6 +80,7 @@ class GedungController extends Controller
         $gedung->fungsi = $request->fungsi;
         $gedung->deskripsi = $request->deskripsi;
         $gedung->foto = $imgName;
+        $gedung->foto_dalam = JSON_Encode($dataFotoDalam);
         $gedung->save();
 
         return redirect('/admin/gedung')->with('success','Data Berhasil Ditambahkan !');
@@ -142,6 +154,18 @@ class GedungController extends Controller
             $request->foto->move(public_path('gambar'), $imgName);
             $gedung->foto = $imgName;
         }
+
+        if($request->hasFile('foto_dalam')){
+            foreach($request->file('foto_dalam') as $file){
+                    $imgNameD = $file->getClientOriginalName() . '-' . time()
+                                            . '.' . $file->extension();
+                    $file->move(public_path('gambar'), $imgNameD);
+                    $dataFotoDalam[] = $imgNameD;
+                    $gedung->foto_dalam = JSON_Encode($dataFotoDalam);
+
+            }
+        }
+
         $gedung->save();
 
 

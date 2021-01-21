@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PeminjamanController extends Controller
 {
@@ -126,7 +127,7 @@ class PeminjamanController extends Controller
         if ($request->surat_peminjaman) {
             $surat_peminjaman = $request->surat_peminjaman->getClientOriginalName() . '-' . time()
                 . '.' . $request->surat_peminjaman->extension();
-            $request->surat_peminjaman->move(public_path('gambar'), $surat_peminjaman);
+            $request->surat_peminjaman->move(public_path('surat'), $surat_peminjaman);
         }
         // dd($request->datetimes);
 
@@ -140,8 +141,21 @@ class PeminjamanController extends Controller
         $peminjaman->awal_pinjam = $tanggal[0];
         $peminjaman->akhir_pinjam = $tanggal[1];
         $peminjaman->surat_peminjaman = $surat_peminjaman;
-
+        // dd($user->name);
         $peminjaman->save();
+
+        Mail::raw('Pengajuan Peminjaman dari '.$peminjaman->user->name.' ('.$peminjaman->lembaga.')'.' telah masuk, silahkan cek pada menu Data Peminjaman.',
+            function ($message) use($peminjaman) {
+
+                $message->from($peminjaman->user->email, $peminjaman->user->name);
+
+
+                $message->to('sipegaa@gmail.com', 'Admin Sistem Peminjaman Gedung');
+
+                $message->subject('Pengajuan Peminjaman Gedung');
+
+        });
+
 
         return redirect('/admin/peminjaman')->with('success','Data Berhasil Ditambahkan !');
     }
@@ -248,7 +262,7 @@ class PeminjamanController extends Controller
         if ($request->surat_peminjaman) {
             $surat_peminjaman = $request->surat_peminjaman->getClientOriginalName() . '-' . time()
                 . '.' . $request->surat_peminjaman->extension();
-            $request->surat_peminjaman->move(public_path('gambar'), $surat_peminjaman);
+            $request->surat_peminjaman->move(public_path('surat'), $surat_peminjaman);
             $peminjaman->surat_peminjaman = $surat_peminjaman;
         }
 
@@ -276,11 +290,22 @@ class PeminjamanController extends Controller
         $request->validate([
             'status' => 'required'
         ]);
-
+        $user = User::find($request->user_id);
         $peminjaman = Peminjaman::find($id);
         $peminjaman->status = $request->status;
-
         $peminjaman->save();
+
+
+
+        Mail::raw('Selamat '.$user->name.', Pengajuan peminjaman gedung anda telah diterima. Silahkan mengambil kunci di Bagian Umum Rektorat pada Sub Bagian Tata Usaha dan Rumah Tangga. Terimakasih.',
+            function ($message) use($user) {
+
+
+            $message->to($user->email, $user->name);
+
+            $message->subject('Pengajuan Peminjaman Gedung Diterima');
+
+        });
 
         return redirect('/admin/peminjaman')->with('success','Pengajuan diterima !');
     }
@@ -293,10 +318,21 @@ class PeminjamanController extends Controller
             'status' => 'required'
         ]);
 
+        $user = User::find($request->user_id);
         $peminjaman = Peminjaman::find($id);
         $peminjaman->status = $request->status;
 
         $peminjaman->save();
+
+        Mail::raw('Maaf '.$user->name.', Pengajuan peminjaman gedung anda Di Tolak.',
+            function ($message) use($user) {
+
+
+            $message->to($user->email, $user->name);
+
+            $message->subject('Pengajuan Peminjaman Gedung Ditolak');
+
+        });
 
         return redirect('/admin/peminjaman')->with('warning','Pengajuan ditolak !');
     }
@@ -309,10 +345,21 @@ class PeminjamanController extends Controller
             'status' => 'required'
         ]);
 
+        $user = User::find($request->user_id);
         $peminjaman = Peminjaman::find($id);
         $peminjaman->status = $request->status;
 
         $peminjaman->save();
+
+        Mail::raw($user->name.', Proses Peminjaman gedung anda telah Selesai.',
+            function ($message) use($user) {
+
+
+            $message->to($user->email, $user->name);
+
+            $message->subject('Pengajuan Peminjaman Selesai');
+
+        });
 
         return redirect('/admin/peminjaman')->with('success','Pengajuan Selesai !');
     }

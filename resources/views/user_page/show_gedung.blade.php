@@ -12,8 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/admin/index">Beranda</a></li>
-              <li class="breadcrumb-item "><a href="/admin/gedung">Data Gedung</a></li>
+              <li class="breadcrumb-item"><a href="/user/index">Beranda</a></li>
               <li class="breadcrumb-item active">Tambah Data Gedung</li>
             </ol>
           </div><!-- /.col -->
@@ -27,7 +26,7 @@
       <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <a href="/user/cektanggal" class="btn btn-primary" style="float: right"><i class="fa fa-calendar"></i>    Cek Jadwal</a>
+                <a href="/user/cektanggal/{{$gedung->id}}" class="btn btn-primary" style="float: right"><i class="fa fa-calendar"></i>    Cek Jadwal {{$gedung->nama_gedung}}</a>
             </div>
             {{-- konten --}}
             <form method="GET" action="/user/gedung/{id}" enctype="multipart/form-data">
@@ -76,7 +75,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="showDeskripsiRuangan">Deskripsi Gedung / Ruangan</label>
+                        <label for="showDeskripsiRuangan">Fasilitas Gedung / Ruangan</label>
                         <textarea class="form-control" id="showDeskripsiRuangan" style="height: 150px" readonly
                             placeholder="Silahkan Masukkan Deskripsi Ruangan" name="deskripsi">{{old('deskripsi') ? old('deskripsi') : $gedung->deskripsi}}</textarea>
                             @error('deskripsi')
@@ -93,6 +92,37 @@
                             @endif
                         <div class="input-group">
                         </div>
+                    </div>
+
+                    @php
+                        $foto_dalam = json_decode ($gedung->foto_dalam);
+                    @endphp
+                    <div class="form-group">
+                        <label for="foto_ruangan">Foto Dalam Gedung/Ruangan</label><br>
+                        @if ($gedung->foto_dalam)
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 300px">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img class="d-block w-100" src="/gambar/{{$foto_dalam[0]}}" alt="First slide">
+                              </div>
+                              @foreach ($foto_dalam as $fd)
+                              <div class="carousel-item">
+                                <img class="d-block w-100" src="/gambar/{{$fd}}" alt="Second slide">
+                              </div>
+                              @endforeach
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                          @else
+                                <p>Belum ada foto dalam ruangan</p>
+                          @endif
                     </div>
 
                     {{-- <div class="card-footer">

@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Kalender Peminjaman</h1><br>
+            <h1 class="m-0">Kalender Peminjaman Gedung</h1><br>
 
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -64,7 +64,7 @@
 
 
 
-          initialView: 'dayGridMonth',
+          initialView: 'listMonth',
           events: data,
           eventTimeFormat: {
               hour: '2-digit',

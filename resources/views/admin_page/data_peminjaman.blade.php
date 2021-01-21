@@ -115,9 +115,12 @@
                                         <i class="nav-icon fa fa-trash"></i>
                                     </button>
                                 @else()
-                                    <button class="btn btn-warning" disabled
+                                    {{-- <button class="btn btn-warning" disabled
                                         data-toggle="tooltip" data-placement="top" title="Edit Data Peminjaman"
-                                        style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></button>
+                                        style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></button> --}}
+                                        <a href="/admin/peminjaman/{{ $p->id }}/edit" class="btn btn-warning"
+                                            data-toggle="tooltip" data-placement="top" title="Edit Data Peminjaman"
+                                            style="width: 40px"><i class="nav-icon fa fa-pencil-square-o"></i></a>
 
                                     <button type="" class="btn btn-danger" style="width: 40px"
                                         data-toggle="tooltip" data-placement="top" title="Hapus Data Peminjaman"

@@ -68,6 +68,8 @@ Route::get('/user/index/{id}', 'UserController@show'); //profil
 Route::get('/user/index/{id}/edit', 'UserController@edit'); //profil
 Route::put('/user/index/{id}', 'UserController@update');
 Route::get('/user/cektanggal', 'UserController@cek');
+Route::get('/user/cektanggal/{id}', 'UserController@cekgedung');
+
 
 
 //peminjaman user

@@ -35,6 +35,7 @@
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="1" name="status">
+                        <input type="hidden" value="{{$peminjaman->user_id}}" name="user_id">
                         <button type="submit" class="btn btn-success ml-2" style="width: 100px; float: right"
                         onclick="return confirm('Apakah Anda yakin akan menyetujui peminjaman ?')">
                         <i class="fa fa-check" aria-hidden="true"></i>    Terima
@@ -46,6 +47,7 @@
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="0" name="status">
+                        <input type="hidden" value="{{$peminjaman->user_id}}" name="user_id">
                         <button type="submit" class="btn btn-danger" style="width: 100px;float: right"
                         onclick="return confirm('Apakah Anda yakin akan menolak peminjaman ?')">
                         <i class="fa fa-times" aria-hidden="true"></i>    Tolak
@@ -58,6 +60,7 @@
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="2" name="status">
+                        <input type="hidden" value="{{$peminjaman->user_id}}" name="user_id">
                         <button type="submit" class="btn btn-primary" style="width: 100px;float: right"
                         onclick="return confirm('Apakah Anda yakin akan menyelesaikan peminjaman ?')">
                         <i class="fa fa-check-circle" aria-hidden="true"></i>    Selesai

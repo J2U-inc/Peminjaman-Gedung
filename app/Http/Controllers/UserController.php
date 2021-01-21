@@ -122,14 +122,30 @@ class UserController extends Controller
     public function cek()
     {
         $peminjaman = Peminjaman::with('gedung')
-                        ->where('status', 1)
-                        ->orWhere('status', 2)
+                        ->where('status', 1) //diterima
+                        ->orWhere('status', 2) //diterima
                         ->get();
         // return $peminjaman;
+
+        // dd($peminjaman);
         $data = ["peminjaman" => $peminjaman];
         return view('user_page.cek_tanggal', $data);
     }
 
+    public function cekgedung($id)
+    {
+        $peminjaman = Peminjaman::with('gedung')
+                        ->where('gedung_id', $id )
+                        ->where('status', 1) //diterima
+                        ->orWhere('gedung_id', $id) //selesai
+                        ->where('status', 2) //diterima
+                        ->get();
+        // return $peminjaman;
+
+        // dd($peminjaman);
+        $data = ["peminjaman" => $peminjaman];
+        return view('user_page.cek_tanggal_gedung', $data);
+    }
     /**
      * Remove the specified resource from storage.
      *
